@@ -11,60 +11,24 @@
     <link rel="manifest" href="/site.webmanifest" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Simultaneous Equation Cannons - Lookup Table</title>
-    <style>
-        body {
-            padding: 30px 0;
-        }
-
-        .ed-choices-xyz,
-        .ed-choices-fusion,
-        .ed-choices-slots {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 8px 14px;
-            margin-bottom: 20px;
-        }
-
-        .ed-choices-xyz .btn-group,
-        .ed-choices-fusion .btn-group {
-            overflow-x: auto;
-        }
-
-        @media screen and (min-width: 992px) {
-
-            .ed-choices-xyz,
-            .ed-choices-fusion,
-            .ed-choices-slots {
-                grid-template-columns: 130px auto max-content;
-            }
-        }
-
-        .lookup-table {
-            text-align: center;
-        }
-
-        .lookup-table .vertical-header {
-            writing-mode: sideways-lr;
-            text-align: center;
-            vertical-align: middle;
-            font-weight: bold;
-            width: 58px;
-        }
-
-        .lookup-table td.cell-with-solution {
-            background-color: rgb(91 255 145 / 18%);
-        }
-    </style>
 </head>
 
 <body>
     <div class="container">
-        <h1 class="h3 mb-4 mb-lg-5">
-            <a href="https://www.db.yugioh-card.com/yugiohdb/card_search.action?ope=2&cid=19921"
-                title="Open in Konami Card Database" target="_blank" class="link-dark">
-                Simultaneous Equation Cannons</a>
-            - Lookup Table
-        </h1>
+        <div class="d-flex justify-content-between no-transition-until-loaded">
+            <h1 class="h3 mb-4 mb-lg-5">
+                <a href="https://www.db.yugioh-card.com/yugiohdb/card_search.action?ope=2&cid=19921"
+                    title="Open in Konami Card Database" target="_blank" class="text-body">
+                    Simultaneous Equation Cannons</a>
+                - Lookup Table
+            </h1>
+
+            <label class="color-mode-toggle" aria-label="Toggle dark mode">
+                <input type="checkbox" checked>
+                <span>☀️</span>
+                <span>🌙</span>
+            </label>
+        </div>
 
         <div class="ed-choices-container mb-4 mb-lg-5">
             <div class="ed-choices-xyz">

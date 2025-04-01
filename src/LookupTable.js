@@ -91,7 +91,7 @@ export class LookupTable {
                 let content = ""
                 if (tabledata[i] && tabledata[i][j]) {
                     title = `Rank ${tabledata[i][j][0]} XYZ, Level ${tabledata[i][j][1]} Fusion`
-                    content = `(${tabledata[i][j][0]},<span style="color: darkorchid;">${tabledata[i][j][1]}</span>)`
+                    content = `(${tabledata[i][j][0]},<span style="color: var(--text-fusion);">${tabledata[i][j][1]}</span>)`
                 }
                 output += `<td class="${content ? "cell-with-solution" : ""}" title="${title}">${content}</td>\n`
             }
