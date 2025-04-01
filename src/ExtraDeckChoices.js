@@ -22,7 +22,7 @@ export class ExtraDeckChoices {
         this.updateRequiredExtraDeckSlots()
         this.registerDefaults()
         this.registerInteractions()
-        this.renderTable()
+        this.renderTable(this.loadSavedState())
     }
 
     registerCheckboxes() {
@@ -61,9 +61,9 @@ export class ExtraDeckChoices {
     }
 
     registerInteractions() {
-        this.element.addEventListener("change", (ev) => {
+        this.element.addEventListener("change", () => {
             this.updateRequiredExtraDeckSlots()
-            this.renderTable()
+            this.renderTable(this.saveState())
         })
 
         this.element.querySelectorAll(this.constructor.selectors.xyz + "," + this.constructor.selectors.fusion).forEach(row => {
@@ -81,11 +81,39 @@ export class ExtraDeckChoices {
         })
     }
 
-    renderTable() {
-        this.table.render({
-            "xyz": this.checkboxes.xyz.filter(x => x.checked).map(x => parseInt(x.nextElementSibling.textContent), 10),
-            "fusion": this.checkboxes.fusion.filter(x => x.checked).map(x => parseInt(x.nextElementSibling.textContent), 10)
-        })
+    renderTable(state) {
+        if (!state) {
+            const savedState = localStorage.getItem("edChoices")
+            if (savedState) {
+                state = savedState
+            } else {
+                state = this.getCurrentState()
+            }
+        }
+        this.table.render(state)
+    }
+
+    getCurrentState() {
+        return {
+            "xyz": this.checkboxes.xyz.filter(x => x.checked).map(x => parseInt(x.value), 10),
+            "fusion": this.checkboxes.fusion.filter(x => x.checked).map(x => parseInt(x.value), 10)
+        }
+    }
+
+    loadSavedState() {
+        const savedState = localStorage.getItem("edChoices")
+        if (!savedState) return false
+
+        const state = JSON.parse(savedState)
+        this.#setCheckboxes("xyz", (cb) => state.xyz.includes(parseInt(cb.value, 10)))
+        this.#setCheckboxes("fusion", (cb) => state.fusion.includes(parseInt(cb.value, 10)))
+        return state
+    }
+
+    saveState() {
+        const state = this.getCurrentState()
+        localStorage.setItem("edChoices", JSON.stringify(state))
+        return state
     }
 
     clear(edType) {
