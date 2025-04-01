@@ -15,7 +15,10 @@ The additional effect can only be applied when these equations have valid soluti
 ## 🖥️ Live Version
 
 You can access the web app through **GitHub Pages**:
-👉 [SEC-LT](https://atthakasem.github.io/SEC-LT/)
+
+<p align="center">
+  <a href="https://atthakasem.github.io/SEC-LT/" target="_blank">Open the web app</a> 🔗
+</p>
 
 ## 🚀 How to Use
 
