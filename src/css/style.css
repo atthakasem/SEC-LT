@@ -49,6 +49,17 @@ body {
     background-color: rgb(91 255 145 / 12%);
 }
 
+.lookup-table thead tr:first-child th:first-child,
+.lookup-table tbody th {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+}
+
+.lookup-table tbody th:not(.vertical-header) {
+    left: 42px;
+}
+
 /* To be removed upon initialization */
 .no-transition-until-loaded *,
 .no-transition-until-loaded *::before,
