@@ -34,6 +34,7 @@ body {
 }
 
 .lookup-table {
+    --vertical-header-width: 81px;
     text-align: center;
     border-collapse: separate;
     border-spacing: 0;
@@ -47,8 +48,7 @@ body {
 }
 
 .lookup-table .vertical-header {
-    writing-mode: vertical-rl;
-    transform: rotate(180deg);
+    width: var(--vertical-header-width);
     vertical-align: middle;
 }
 
@@ -64,7 +64,7 @@ body {
 }
 
 .lookup-table tbody th:not(.vertical-header) {
-    left: 42px;
+    left: var(--vertical-header-width);
 }
 
 /* To be removed upon initialization */
