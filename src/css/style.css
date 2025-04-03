@@ -35,14 +35,21 @@ body {
 
 .lookup-table {
     text-align: center;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-top: 1px solid var(--bs-border-color);
+}
+
+.lookup-table th,
+.lookup-table td {
+    border-top: 1px solid var(--bs-border-color);
+    border-bottom: 1px solid var(--bs-border-color);
 }
 
 .lookup-table .vertical-header {
-    writing-mode: sideways-lr;
-    text-align: center;
+    writing-mode: vertical-rl;
+    transform: rotate(180deg);
     vertical-align: middle;
-    font-weight: bold;
-    width: 58px;
 }
 
 .lookup-table td.cell-with-solution {
