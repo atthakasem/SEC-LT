@@ -23,7 +23,14 @@ export class ExtraDeckChoices {
         this.registerDefaults()
         this.registerInteractions()
         this.updateRequiredExtraDeckSlots()
-        this.renderTable(this.loadSavedState())
+
+        try {
+            const state = this.loadQueryState()
+            this.deleteQuery()
+            this.renderTable(state)
+        } catch {
+            this.renderTable(this.loadLocalStorageState())
+        }
     }
 
     registerCheckboxes() {
@@ -83,12 +90,19 @@ export class ExtraDeckChoices {
 
         this.element.querySelector(this.constructor.selectors.shareButton).addEventListener("click", (ev) => {
             const button = ev.currentTarget
-            const span = button.querySelector("span")
-            const originalText = span.textContent
             button.disabled = true
-            navigator.clipboard.writeText(window.location.href)
+
+            const originalText = button.querySelector("span").textContent
+
+            const url = new URL(window.location.href)
+            const state = this.getCurrentState()
+            url.searchParams.set("xyz", state.xyz.join(","))
+            url.searchParams.set("fusion", state.fusion.join(","))
+
+            navigator.clipboard.writeText(url.toString())
                 .then(() => button.querySelector("span").textContent = "URL has been copied to clipboard ✅")
                 .catch(() => button.querySelector("span").textContent = "URL could not be copied to clipboard ❌")
+
             setTimeout(() => {
                 button.querySelector("span").textContent = originalText
                 button.disabled = false
@@ -108,14 +122,43 @@ export class ExtraDeckChoices {
         this.table.render(state)
     }
 
-    getCurrentState() {
-        return {
-            "xyz": this.checkboxes.xyz.filter(x => x.checked).map(x => parseInt(x.value), 10),
-            "fusion": this.checkboxes.fusion.filter(x => x.checked).map(x => parseInt(x.value), 10)
-        }
+    createState(xyz, fusion) {
+        return { xyz, fusion }
     }
 
-    loadSavedState() {
+    getCurrentState() {
+        return this.createState(
+            this.checkboxes.xyz.filter(x => x.checked).map(x => parseInt(x.value), 10),
+            this.checkboxes.fusion.filter(x => x.checked).map(x => parseInt(x.value), 10)
+        )
+    }
+
+    loadQueryState() {
+        const url = new URL(window.location.href)
+        if (!url.searchParams.has("xyz") || !url.searchParams.has("fusion")) {
+            throw new Error("Query parameters 'xyz' and 'fusion' must exist.");
+        }
+
+        const xyzState = url.searchParams.get("xyz").split(",").map(n => parseInt(n, 10))
+        const fusionState = url.searchParams.get("fusion").split(",").map(n => parseInt(n, 10))
+        if (xyzState.some(n => Number.isNaN(n) || n < 1 || n > 13) || fusionState.some(n => Number.isNaN(n) || n < 1 || n > 13)) {
+            throw new Error("Error parsing query parameters.");
+        }
+
+        this.#setCheckboxes("xyz", (cb) => xyzState.includes(parseInt(cb.value, 10)), false)
+        this.#setCheckboxes("fusion", (cb) => fusionState.includes(parseInt(cb.value, 10)), false)
+
+        return this.createState(xyzState, fusionState)
+    }
+
+    deleteQuery() {
+        const url = new URL(window.location.href)
+        url.searchParams.delete("xyz")
+        url.searchParams.delete("fusion")
+        window.history.replaceState({}, "", url)
+    }
+
+    loadLocalStorageState() {
         const savedState = localStorage.getItem("edChoices")
         if (!savedState) return false
 
