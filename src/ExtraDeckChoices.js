@@ -19,9 +19,9 @@ export class ExtraDeckChoices {
         this.element = element
         this.table = new LookupTable(element.parentElement.querySelector(".lookup-table"))
         this.registerCheckboxes()
-        this.updateRequiredExtraDeckSlots()
         this.registerDefaults()
         this.registerInteractions()
+        this.updateRequiredExtraDeckSlots()
         this.renderTable(this.loadSavedState())
     }
 
@@ -105,8 +105,8 @@ export class ExtraDeckChoices {
         if (!savedState) return false
 
         const state = JSON.parse(savedState)
-        this.#setCheckboxes("xyz", (cb) => state.xyz.includes(parseInt(cb.value, 10)))
-        this.#setCheckboxes("fusion", (cb) => state.fusion.includes(parseInt(cb.value, 10)))
+        this.#setCheckboxes("xyz", (cb) => state.xyz.includes(parseInt(cb.value, 10)), false)
+        this.#setCheckboxes("fusion", (cb) => state.fusion.includes(parseInt(cb.value, 10)), false)
         return state
     }
 
@@ -128,7 +128,7 @@ export class ExtraDeckChoices {
         this.#setCheckboxes(edType, () => true)
     }
 
-    #setCheckboxes(edType, func) {
+    #setCheckboxes(edType, func, shouldDispatch = true) {
         if (typeof func !== "function") {
             throw new Error("Parameter func must be a function that returns a bool")
         }
@@ -143,7 +143,7 @@ export class ExtraDeckChoices {
             }
         })
 
-        if (isAnyCheckboxChanged) {
+        if (isAnyCheckboxChanged && shouldDispatch) {
             this.element.dispatchEvent(new Event("change", { bubbles: true }))
         }
     }
