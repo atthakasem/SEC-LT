@@ -24,6 +24,15 @@ body {
     overflow-x: auto;
 }
 
+.button-icon {
+    height: 1em;
+    vertical-align: middle;
+}
+
+.btn-secondary .button-icon {
+    filter: invert(1);
+}
+
 @media screen and (min-width: 992px) {
 
     .ed-choices-xyz,

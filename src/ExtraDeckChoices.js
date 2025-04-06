@@ -5,6 +5,7 @@ export class ExtraDeckChoices {
         "xyz": ".ed-choices-xyz",
         "fusion": ".ed-choices-fusion",
         "requiredSlots": ".ed-choices-required-slots",
+        "shareButton": ".ed-choices-share",
     }
     element = null
     table = null
@@ -78,6 +79,20 @@ export class ExtraDeckChoices {
                     this[action](edType)
                 }
             })
+        })
+
+        this.element.querySelector(this.constructor.selectors.shareButton).addEventListener("click", (ev) => {
+            const button = ev.currentTarget
+            const span = button.querySelector("span")
+            const originalText = span.textContent
+            button.disabled = true
+            navigator.clipboard.writeText(window.location.href)
+                .then(() => button.querySelector("span").textContent = "URL has been copied to clipboard ✅")
+                .catch(() => button.querySelector("span").textContent = "URL could not be copied to clipboard ❌")
+            setTimeout(() => {
+                button.querySelector("span").textContent = originalText
+                button.disabled = false
+            }, 4000);
         })
     }
 
