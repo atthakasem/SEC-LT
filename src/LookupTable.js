@@ -8,12 +8,22 @@ export class LookupTable {
     render(xyzFusionLevelRankData) {
         const data = this.convertToTableData(xyzFusionLevelRankData)
         if (data.maxCardsInPlay === 0) {
-            this.element.innerHTML = "<tr><td>⚠️ No solution exists for this configuration. Try other XYZ Ranks and Fusion Levels.</td></tr>"
+            this.element.innerHTML =
+                '<tr><td>⚠️ No solution exists for this configuration. Try other XYZ Ranks and Fusion Levels.</td></tr>'
             return false
         }
 
-        const thead = this.createTableHead(data.minCardsInPlay, data.maxCardsInPlay)
-        const tbody = this.createTableBody(data.tableData, data.minCardsInPlay, data.maxCardsInPlay, data.minOpponentMonsterLevel, data.maxOpponentMonsterLevel)
+        const thead = this.createTableHead(
+            data.minCardsInPlay,
+            data.maxCardsInPlay
+        )
+        const tbody = this.createTableBody(
+            data.tableData,
+            data.minCardsInPlay,
+            data.maxCardsInPlay,
+            data.minOpponentMonsterLevel,
+            data.maxOpponentMonsterLevel
+        )
         this.element.innerHTML = thead + tbody
     }
 
@@ -46,12 +56,18 @@ export class LookupTable {
                 }
             }
         }
-        return { tableData, minOpponentMonsterLevel, maxOpponentMonsterLevel, minCardsInPlay, maxCardsInPlay }
+        return {
+            tableData,
+            minOpponentMonsterLevel,
+            maxOpponentMonsterLevel,
+            minCardsInPlay,
+            maxCardsInPlay,
+        }
     }
 
     createTableHead(minCardsInPlay, maxCardsInPlay) {
         function createTableHeaders(minCardsInPlay, maxCardsInPlay) {
-            let output = ""
+            let output = ''
             for (let i = minCardsInPlay; i <= maxCardsInPlay; i++) {
                 output += `<th>${i}</th>\n`
             }
@@ -73,10 +89,20 @@ export class LookupTable {
         `
     }
 
-    createTableBody(tabledata, minCardsInPlay, maxCardsInPlay, minOpponentMonsterLevel, maxOpponentMonsterLevel) {
-        let output = "<tbody>\n"
+    createTableBody(
+        tabledata,
+        minCardsInPlay,
+        maxCardsInPlay,
+        minOpponentMonsterLevel,
+        maxOpponentMonsterLevel
+    ) {
+        let output = '<tbody>\n'
 
-        for (let i = minOpponentMonsterLevel; i <= maxOpponentMonsterLevel; i++) {
+        for (
+            let i = minOpponentMonsterLevel;
+            i <= maxOpponentMonsterLevel;
+            i++
+        ) {
             output += `<tr>\n`
             if (i === minOpponentMonsterLevel) {
                 output += `
@@ -87,18 +113,18 @@ export class LookupTable {
             output += `<th>${i}</th>\n`
 
             for (let j = minCardsInPlay; j <= maxCardsInPlay; j++) {
-                let title = ""
-                let content = ""
+                let title = ''
+                let content = ''
                 if (tabledata[i] && tabledata[i][j]) {
                     title = `Rank ${tabledata[i][j][0]} XYZ, Level ${tabledata[i][j][1]} Fusion`
                     content = `(${tabledata[i][j][0]},<span style="color: var(--text-fusion);">${tabledata[i][j][1]}</span>)`
                 }
-                output += `<td class="${content ? "cell-with-solution" : ""}" title="${title}">${content}</td>\n`
+                output += `<td class="${content ? 'cell-with-solution' : ''}" title="${title}">${content}</td>\n`
             }
             output += `</tr>\n`
         }
 
-        output += "</tbody>\n"
+        output += '</tbody>\n'
         return output
     }
 }

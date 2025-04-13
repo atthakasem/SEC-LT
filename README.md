@@ -5,6 +5,7 @@ This web app simplifies the process of resolving the powerful additional effect 
 ## 📜 Card Effect Breakdown
 
 **Simultaneous Equation Cannons** requires solving the system of equations $x + y = c_1$ and $2x + y = c_2$ where:
+
 - **x** = Rank(s) of the Xyz Monster(s) used
 - **y** = Level of the Fusion Monster used
 - **c₁** = Rank or Level of an opponent’s face-up monster

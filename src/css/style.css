@@ -2,7 +2,7 @@
     --text-fusion: darkorchid;
 }
 
-:root[data-bs-theme="dark"] {
+:root[data-bs-theme='dark'] {
     --text-fusion: #d788ff;
 }
 
@@ -34,7 +34,6 @@ body {
 }
 
 @media screen and (min-width: 992px) {
-
     .ed-choices-xyz,
     .ed-choices-fusion,
     .ed-choices-slots {
@@ -96,18 +95,22 @@ body {
     border-radius: 2rem;
     user-select: none;
     cursor: pointer;
-    transition: translate 0.3s, background-color 0.8s;
+    transition:
+        translate 0.3s,
+        background-color 0.8s;
 }
 
 .color-mode-toggle::before {
     position: absolute;
     top: 4px;
     left: 4px;
-    content: "";
+    content: '';
     height: calc(100% - 8px);
     aspect-ratio: 1;
     border-radius: 50%;
-    transition: translate 0.3s, background-color 0.8s;
+    transition:
+        translate 0.3s,
+        background-color 0.8s;
     background: #fff;
 }
 
