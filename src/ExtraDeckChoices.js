@@ -26,7 +26,6 @@ export class ExtraDeckChoices {
         this.registerCheckboxes()
         this.registerDefaults()
         this.registerInteractions()
-        this.updateRequiredExtraDeckSlots()
 
         try {
             const state = this.loadQueryState()
@@ -35,6 +34,7 @@ export class ExtraDeckChoices {
         } catch {
             this.renderTable(this.loadLocalStorageState())
         }
+        this.updateRequiredExtraDeckSlots()
     }
 
     registerCheckboxes() {
