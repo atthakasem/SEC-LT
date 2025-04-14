@@ -52,12 +52,12 @@ export class ExtraDeckChoices {
 
     registerDefaults() {
         this.checkboxes.xyz.forEach((cb) => {
-            if (cb.checked) {
+            if (cb.hasAttribute('checked')) {
                 this.defaults.xyz.push(cb.nextElementSibling.textContent)
             }
         })
         this.checkboxes.fusion.forEach((cb) => {
-            if (cb.checked) {
+            if (cb.hasAttribute('checked')) {
                 this.defaults.fusion.push(cb.nextElementSibling.textContent)
             }
         })
